@@ -1,0 +1,29 @@
+import telebot
+import time
+
+TOKEN = "8370825002:AAHOy7uCYQ8gJcrbygSHgNMdsd2LQv1cYgM"
+bot = telebot.TeleBot(TOKEN)
+
+adhkar_sabah = [
+    "أصبحنا وأصبح الملك لله...",
+    "اللهم ما أصبح بي من نعمة...",
+    "أصبحنا على فطرة الإسلام...",
+    "اللهم إني أصبحت أشهدك...",
+    "رضيت بالله ربا...",
+    "اللهم إني أعوذ بك من الكفر والفقر...",
+    "سبحان الله وبحمده...",
+    "أستغفر الله العظيم...",
+    "اللهم إني أسألك خير هذا اليوم..."
+]
+
+@bot.message_handler(commands=['اذكار'])
+def send_adhkar_command(message):
+    for dhikr in adhkar_sabah:
+        bot.send_message(message.chat.id, dhikr)  # استخدم chat.id من الرسالة
+        time.sleep(1)
+
+@bot.message_handler(commands=['start'])
+def start(message):
+    bot.send_message(message.chat.id, "بوت الأذكار شغال ✅ ارسل /اذكار ليصلك الأذكار")
+
+bot.polling(none_stop=True)
